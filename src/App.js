@@ -1,8 +1,10 @@
 import React from "react";
 import useFetch from "./hooks/useFetch";
+import ChampionRotation from "./components/ChampionRotation/ChampionRotation";
+import Champion from "./components/ChampionRotation/Champion";
 
 function App() {
-  const API_KEY = "RGAPI-e9ae8d30-9dd6-49a5-8ca1-8ab46703b91e";
+  const API_KEY = "RGAPI-ed269ddd-015e-4c5e-addd-c1c44f0078ab";
   const API_URL_ROTATION = `https://eun1.api.riotgames.com/lol/platform/v3/champion-rotations?api_key=${API_KEY}`;
   const API_CHAMPIONS =
     "http://ddragon.leagueoflegends.com/cdn/12.5.1/data/en_US/champion.json";
@@ -25,15 +27,7 @@ function App() {
       return championsRotationIds?.includes(parseInt(champ.info.key));
     })
     .map((item) => {
-      return (
-        <div key={item.info.key}>
-          <h4>{item.info.id}</h4>
-          <img
-            src={`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/champion/${item.info.image.full}`}
-            alt={item.info.id}
-          ></img>
-        </div>
-      );
+      return <Champion key={item.info.key} champion={item} />;
     });
 
   console.log(championsRotationIds);
@@ -44,8 +38,11 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Champions rotation</h1>
-      {loading && loadingChamps ? <p>Loading...</p> : champions1}
+      {loading && loadingChamps ? (
+        <p>Loading...</p>
+      ) : (
+        <ChampionRotation champions={champions1} />
+      )}
     </div>
   );
 }
