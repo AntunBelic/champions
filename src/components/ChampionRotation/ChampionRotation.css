@@ -1,0 +1,43 @@
+.champion__container {
+  position: relative;
+}
+.champion__img {
+  display: block;
+  width: 140px;
+}
+.champion__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  color: rgb(218, 218, 218);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  cursor: pointer;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.champion__overlay:hover {
+  opacity: 1;
+}
+
+.champion__overlay--blur {
+  backdrop-filter: blur(2px);
+}
+
+.champion__overlay > .champion__title {
+  transform: translateY(40px);
+  transition: transform 0.3s;
+}
+
+.champion__overlay:hover > .champion__title {
+  transform: translateY(0);
+}
+
+.champion__title {
+  font-weight: bold;
+}
