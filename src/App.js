@@ -2,6 +2,9 @@ import React from "react";
 import useFetch from "./hooks/useFetch";
 import ChampionRotation from "./components/ChampionRotation/ChampionRotation";
 import Champion from "./components/ChampionRotation/Champion";
+import ChampionInfo from "./components/ChampionInfo/ChampionInfo";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Navbar from "./components/Navbar/Navbar";
 
 function App() {
   const API_KEY = "RGAPI-042d22c3-69f9-4fb4-b8fb-13505755384e";
@@ -37,13 +40,25 @@ function App() {
   if (error) alert(error);
 
   return (
-    <div className="App">
-      {loading && loadingChamps ? (
-        <p>Loading...</p>
-      ) : (
-        <ChampionRotation champions={champions1} />
-      )}
-    </div>
+    <Router>
+      <div className="App">
+        <Navbar />
+        <Routes>
+          <Route
+            exact
+            path="/"
+            element={
+              <ChampionRotation
+                champions={champions1}
+                loading={loading}
+                loadingChamps={loadingChamps}
+              />
+            }
+          />
+          <Route path="/ChampionInfo" element={<ChampionInfo />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
