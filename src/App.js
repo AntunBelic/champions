@@ -4,7 +4,7 @@ import ChampionRotation from "./components/ChampionRotation/ChampionRotation";
 import Champion from "./components/ChampionRotation/Champion";
 
 function App() {
-  const API_KEY = "RGAPI-ed269ddd-015e-4c5e-addd-c1c44f0078ab";
+  const API_KEY = "RGAPI-042d22c3-69f9-4fb4-b8fb-13505755384e";
   const API_URL_ROTATION = `https://eun1.api.riotgames.com/lol/platform/v3/champion-rotations?api_key=${API_KEY}`;
   const API_CHAMPIONS =
     "http://ddragon.leagueoflegends.com/cdn/12.5.1/data/en_US/champion.json";
