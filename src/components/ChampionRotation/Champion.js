@@ -3,7 +3,7 @@ import { Col } from "react-bootstrap";
 import "./ChampionRotation.css";
 import { Link } from "react-router-dom";
 
-export default function Champion({ champion }) {
+export default function Champion({ champion, handleShow }) {
   return (
     <Col key={champion.info.key}>
       <Link to={"/ChampionInfo"}>
@@ -13,8 +13,14 @@ export default function Champion({ champion }) {
             alt={champion.info.id}
             className="champion__img"
           ></img>
-          <div className="champion__overlay champion__overlay--blur">
-            <h5 className="champion__title">{champion.info.id}</h5>
+          <div
+            className="champion__overlay champion__overlay--blur"
+            id={champion.info.key}
+            onClick={handleShow}
+          >
+            <h5 className="champion__title" id={champion.info.key}>
+              {champion.info.id}
+            </h5>
           </div>
         </div>
       </Link>

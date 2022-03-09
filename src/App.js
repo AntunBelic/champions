@@ -16,6 +16,8 @@ function App() {
   const { data: allChampions, loading: loadingChamps } =
     useFetch(API_CHAMPIONS);
 
+  const [clicked, setClicked] = React.useState([]);
+
   const championsRotationIds = data?.freeChampionIdsForNewPlayers;
 
   let arrOfChamps = [];
@@ -25,17 +27,28 @@ function App() {
     }));
   }
 
-  const champions1 = arrOfChamps
-    .filter((champ) => {
-      return championsRotationIds?.includes(parseInt(champ.info.key));
-    })
-    .map((item) => {
-      return <Champion key={item.info.key} champion={item} />;
-    });
+  const champions = arrOfChamps.filter((champ) => {
+    return championsRotationIds?.includes(parseInt(champ.info.key));
+  });
+  const champions1 = champions?.map((item) => {
+    return (
+      <Champion key={item.info.key} champion={item} handleShow={handleShow} />
+    );
+  });
 
   console.log(championsRotationIds);
-  console.log(champions1);
+  console.log(champions);
   console.log(arrOfChamps);
+  console.log(clicked);
+
+  function handleShow(e) {
+    console.log(e);
+    setClicked(
+      champions?.filter((item) => {
+        return item.info.key === e.target.id ? { ...item } : null;
+      })
+    );
+  }
 
   if (error) alert(error);
 
@@ -55,7 +68,16 @@ function App() {
               />
             }
           />
-          <Route path="/ChampionInfo" element={<ChampionInfo />} />
+          <Route
+            path="/ChampionInfo"
+            element={
+              <ChampionInfo
+                clicked={clicked}
+                loading={loading}
+                loadingChamps={loadingChamps}
+              />
+            }
+          />
         </Routes>
       </div>
     </Router>
