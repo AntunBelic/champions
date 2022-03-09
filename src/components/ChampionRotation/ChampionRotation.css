@@ -35,14 +35,11 @@
   opacity: 0;
   cursor: pointer;
   transition: opacity 0.3s ease-in-out;
+  backdrop-filter: blur(2px);
 }
 
 .champion__overlay:hover {
   opacity: 1;
-}
-
-.champion__overlay--blur {
-  backdrop-filter: blur(2px);
 }
 
 .champion__overlay > .champion__title {
