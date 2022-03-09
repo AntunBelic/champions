@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 export default function Champion({ champion, handleShow }) {
   return (
     <Col key={champion.info.key}>
-      <Link to={"/ChampionInfo"}>
+      <Link to={`/ChampionInfo/${champion.info.id}`}>
         <div className="champion__container">
           <img
             src={`http://ddragon.leagueoflegends.com/cdn/12.5.1/img/champion/${champion.info.image.full}`}

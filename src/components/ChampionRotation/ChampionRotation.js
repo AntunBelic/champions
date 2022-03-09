@@ -1,12 +1,41 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import "./ChampionRotation.css";
+import useFetch from "../../hooks/useFetch";
+import Champion from "./Champion";
 
-export default function ChampionRotation({
-  champions,
-  loading,
-  loadingChamps,
-}) {
+export default function ChampionRotation() {
+  const API_KEY = "RGAPI-042d22c3-69f9-4fb4-b8fb-13505755384e";
+  const API_URL_ROTATION = `https://eun1.api.riotgames.com/lol/platform/v3/champion-rotations?api_key=${API_KEY}`;
+  const API_CHAMPIONS =
+    "http://ddragon.leagueoflegends.com/cdn/12.5.1/data/en_US/champion.json";
+
+  const { data, loading, error } = useFetch(API_URL_ROTATION);
+  const { data: allChampions, loading: loadingChamps } =
+    useFetch(API_CHAMPIONS);
+
+  const championsRotationIds = data?.freeChampionIdsForNewPlayers;
+
+  let arrOfChamps = [];
+  if (allChampions) {
+    arrOfChamps = Object.entries(allChampions.data).map(([k, info]) => ({
+      info,
+    }));
+  }
+
+  const champions = arrOfChamps.filter((champ) => {
+    return championsRotationIds?.includes(parseInt(champ.info.key));
+  });
+  const champions1 = champions?.map((item) => {
+    return <Champion key={item.info.key} champion={item} />;
+  });
+
+  console.log(championsRotationIds);
+  console.log(champions);
+  console.log(arrOfChamps);
+
+  if (error) alert(error);
+
   return (
     <>
       {loading && loadingChamps ? (
@@ -23,7 +52,7 @@ export default function ChampionRotation({
             md={5}
             className="justify-content-center gy-3 gx-1 champ__spacer"
           >
-            {champions}
+            {champions1}
           </Row>
         </Container>
       )}
